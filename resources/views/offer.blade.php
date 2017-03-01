@@ -16,9 +16,9 @@
       </div> <!-- /.breadcrumb-row -->
   </div> <!-- /.breadcrumb-wrap -->
 
-  <div class="content container"">
+  <div class="content container">
     <div class="offer-con">
-      <div class="row"> 
+      <div class="row">
         <div class="merchant col-sm-6">
           <div class="merchant-pic" monkey="top_go_merchant">
             <span class="pic">
@@ -52,17 +52,17 @@
               <span>{{$offer->description}}</span>
             </strong>
           </p>
-          <p class="other"> 
+          <p class="other">
             <strong>Verificado: {{$offer->confirm_date}}</strong>
               &nbsp;&nbsp;&nbsp;▪&nbsp;&nbsp;&nbsp;
-            <span class="end-time">Validade: {{$offer->ends}}</span>  
+            <span class="end-time">Validade: {{$offer->ends}}</span>
           </p>
         </div> <!-- /.offer-info -->
       </div> <!-- /.row -->
     </div> <!-- /.offer-con -->
   </div> <!-- /.content -->
 
-  
+
     <div class="offer-list container">
       <div class="row">
         <div class="col-sm-20 col-xs-24">
@@ -94,10 +94,10 @@
         @endforeach
         </ul>
       </div> <!-- /.row -->
-    </div> <!-- /.offer-list --> 
-  
+    </div> <!-- /.offer-list -->
 
-  
+
+
     <div class="merchant-list">
     <div class="container">
       <div class="row">
@@ -119,6 +119,6 @@
         </ul>
       </div><!-- /.row -->
     </div><!-- /.container -->
-  </div><!-- /.merchant-list --> 
+  </div><!-- /.merchant-list -->
 
 @endsection

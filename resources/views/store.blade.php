@@ -56,7 +56,7 @@
                       </a>
                       <button class="move-btn-bottom open-code hidden" type="button">{{$offer->code}}</button>
                       @else
-                      <a class="offer-popup offer-nocode btn btn-info" href="#id" target="_blank">Compre agora</a>
+                      <a class="offer-popup offer-nocode btn btn-info" href="#{{$offer->id}}" target="_blank">Compre agora</a>
                       @endif
                   </div>
                   <div class="offer-title col-md-12 col-md-pull-7 col-xs-24">
