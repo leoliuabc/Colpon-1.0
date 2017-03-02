@@ -27,7 +27,11 @@
         <div class="merchant-offer">
             @foreach ($store->offers as $offer)
             @if ($offer->status == '1')
+            @if (strstr($offer->link,'http'))
             <div class="stack-item row" data-link="{{$offer->link}}" data-title="{{$offer->name}}" data-code="{{$offer->code}}" data-type="$offer->type" data-img="/images/Store-{{$store->id}}.png" data-name="{{$store->name}}" data-id="{{$offer->id}}" data-rule="{{$offer->description}}" data-time-verify="{{$offer->confirm_date}}" data-time-expire="{{$offer->ends}}">
+            @else
+            <div class="stack-item row" data-link="http://{{$offer->link}}" data-title="{{$offer->name}}" data-code="{{$offer->code}}" data-type="$offer->type" data-img="/images/Store-{{$store->id}}.png" data-name="{{$store->name}}" data-id="{{$offer->id}}" data-rule="{{$offer->description}}" data-time-verify="{{$offer->confirm_date}}" data-time-expire="{{$offer->ends}}">
+            @endif
                 <div class="offer-con clearfix row">
                   <div class="offer-info col-md-5 col-xs-11 ">
                     @if ($offer->type == 'C')
@@ -87,7 +91,11 @@
           <div class="recommend">
             <h2>Melhores ofertas e cupons das categorias mais populares:</h2>
               @foreach ($top_offers as $top_offer)
+              @if (strstr($top_offer->link,'http'))
               <div class="stack-item row" data-link="{{$top_offer->link}}" data-title="{{$top_offer->name}}" data-code="{{$top_offer->code}}" data-type="$top_offer->type" data-img="/images/Store-{{$top_offer->store_id}}.png" data-name="{{$top_offer->store_name}}" data-id="{{$top_offer->id}}" data-rule="{{$top_offer->description}}" data-time-verify="{{$top_offer->confirm_date}}" data-time-expire="{{$top_offer->ends}}">
+              @else
+              <div class="stack-item row" data-link="http://{{$top_offer->link}}" data-title="{{$top_offer->name}}" data-code="{{$top_offer->code}}" data-type="$top_offer->type" data-img="/images/Store-{{$top_offer->store_id}}.png" data-name="{{$top_offer->store_name}}" data-id="{{$top_offer->id}}" data-rule="{{$top_offer->description}}" data-time-verify="{{$top_offer->confirm_date}}" data-time-expire="{{$top_offer->ends}}">
+              @endif
                 <div class="offer-con clearfix row">
                   <div class="offer-info col-md-5  col-xs-11">
                     <a class="offer-popup" href="{{ url('/lojas/'.$top_offer->store_titleslug.'/'.$top_offer->store_id) }}" title="Cupom de Desconto {{$top_offer->store_name}}" target="_blank">
