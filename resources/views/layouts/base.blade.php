@@ -32,9 +32,9 @@
         <div class="quick-link col-sm-12 col-md-6 col-md-push-6">
           <h4>Temas especiais:</h4>
           <ul class="clearfix">
-            <li><a href="#">Dia das Mães</a></li>
-            <li><a href="#">Dia dos Namorados</a></li>
-            <li><a href="#">Chrome Extensão</a></li>
+            <li><a rel="nofollow" href="#">Dia das Mães</a></li>
+            <li><a rel="nofollow" href="#">Dia dos Namorados</a></li>
+            <li><a rel="nofollow" href="#">Chrome Extensão</a></li>
           </ul>
         </div>
         <div class="bottom-fb col-xs-12 col-xs-push-12 col-sm-12 col-sm-push-12 col-md-6 col-md-push-6">
