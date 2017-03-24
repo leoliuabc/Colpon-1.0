@@ -11,14 +11,14 @@ import os
 
 def getHtml(url):
     try:
-        user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'
+        user_agent = 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36'
         headers = {
             'User-Agent' : user_agent,
             'Referer':'http://www.google.com/'
             }
         html = requests.get(url,headers=headers)
         return html
-    except Exception as e:
+    except:
         logging.info("Meliuz Say No!~")
         return ""
 def getSoup(html):
@@ -26,11 +26,12 @@ def getSoup(html):
     return soup
 def getOffers(soup):
     try:
-        offers = soup.find_all("div",attrs={"class": "bg--white box--round box--shadow mb- coupon-container"})
+        offers = soup.find_all("li",attrs={"class": "d-b bg--white box--round box--shadow mb- coupon-container"})
         return offers
     except:
+        logging.info("No Offers!")
         return ""
-        
+
 def getName(offer):
     pattern = r'target="_blank">  (.*)  </a> </h3>'
     name = re.findall(pattern,str(offer))
@@ -53,11 +54,14 @@ def getCode(offer):
     code = re.findall(pattern,str(offer))
     return code
 def getImg(soup,store_id):
-    imagename = "/Users/liuzhiguo/Sites/Colpon/public/images/Store-"+str(store_id)+".png"
-    imgurl = "http:"+str(soup.find("img",attrs={"class": "d-b box--shadow img--round xs/w-1of1"}).get("src"))
-    data=requests.get(imgurl,timeout=30).content
-    with open(imagename,'wb') as f:  
-        f.write(data)
+    try:
+        imagename = "/Users/liuzhiguo/Sites/Colpon/public/images/Store-"+str(store_id)+".png"
+        imgurl = "http:"+str(soup.find("img",attrs={"class": "d-b box--shadow img--round img--responsive"}).get("src"))
+        data=requests.get(imgurl,timeout=30).content
+        with open(imagename,'wb') as f:
+            f.write(data)
+    except:
+        logging.info("Store_id : %s Not OK!" % str(store_id))
 def ifImg(store_id):
     filename = r'/Users/liuzhiguo/Sites/Colpon/public/images/Store-'+str(store_id)+'.png'
     return os.path.exists(filename)
@@ -92,6 +96,7 @@ def main():
             t1 = (datetime.datetime.strptime((str(datetime.date.today()+datetime.timedelta(1))+" 00:00:00"),'%Y-%m-%d %H:%M:%S')-datetime.datetime.now()).seconds+int(random.uniform(600, 6000))
             logging.info("Html None Today End! Start Sleep %ss (Sleep Till Tomorrow)" % t1)
             time.sleep(t1)
+            html = getHtml(url)
         soup = getSoup(html)
         offers = getOffers(soup)
         if ifImg(store_id):
@@ -141,18 +146,19 @@ def main():
                 #Insert Offers
                 cursor.execute(sqlinsertoffers,(store_id,"D",name,description,link,"",1,confirm_date,ends,now,now))
                 logging.info("No Offer But Insert Offers")
+        #Commit
+        conn.commit()
         #Sleep 60s-600s
-        t = int(random.uniform(60, 600))
+        t = int(random.uniform(30, 200))
         logging.info("Sleep Start : %s" % time.strftime("%Y-%m-%d %H:%M:%S"))
         logging.info("Sleep : %ss" % t)
         time.sleep(t)
     #Colse SQL
     cursor.close()
-    conn.commit()
     conn.close()
-    
+
 if __name__ == '__main__':
-    while 1:
+    while True:
         #Log
         logging.basicConfig(level=logging.DEBUG,
                     format='%(process)d %(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
